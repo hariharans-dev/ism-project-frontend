@@ -1,0 +1,23 @@
+.error-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: 600px; /* Set max width to prevent the container from stretching too wide */
+  padding: 20px;
+  text-align: center;
+  background-color: #f8d7da; /* Red background color (you can adjust the color as needed) */
+  border: 1px solid #f5c6cb; /* Red border color (you can adjust the color as needed) */
+  border-radius: 5px; /* Rounded corners */
+}
+
+.error-heading {
+  color: #721c24; /* Dark red text color (you can adjust the color as needed) */
+}
+
+.error-message {
+  color: #721c24; /* Dark red text color (you can adjust the color as needed) */
+}
+
+/* You can add more CSS styles as needed */

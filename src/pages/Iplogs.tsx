@@ -47,7 +47,7 @@ const Iplogs = () => {
 
   const convertDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleString("en-US", {
+    return date.toLocaleString("en-GB", {
       year: "numeric",
       month: "numeric",
       day: "numeric",
@@ -59,7 +59,7 @@ const Iplogs = () => {
 
   return (
     <div className="iplogs-container">
-      <h2>IP Logs</h2>
+      <h2>IP LOGS</h2>
       <div className="table-container">
         <table>
           <thead>

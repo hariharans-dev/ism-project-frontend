@@ -5,9 +5,11 @@ const Home = () => {
     <>
       <div className="body-home">
         <div className="container">
-          <h1>Welcome to Your Modern Dashboard</h1>
-          <p>Get insights and manage your data with ease.</p>
-          <a href="index.html">Go to Dashboard</a>
+          <h1>Mitigating IP Spoofing Risks Project</h1>
+          <p>
+            Team: Hariharan S (21BIT0224), Shrinidhi B (21BIT0381), Preethi S
+            (21BIT0349)
+          </p>
         </div>
       </div>
     </>

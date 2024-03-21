@@ -1,4 +1,4 @@
-import "./style/Iplogs.css";
+import "./style/Attendance.css";
 import { useEffect, useState } from "react";
 import Request from "../functions/Request";
 import { useNavigate } from "react-router-dom";
@@ -9,10 +9,11 @@ const Attendance = () => {
   interface LogEntry {
     _id: string;
     regno: string;
-    time: string;
+    date: string;
     convertedTime: string; // New property to store converted date as a string
   }
 
+  const [regno, setregno] = useState("");
   const [response, setResponse] = useState<LogEntry[]>([]);
 
   const errorFunction = () => {
@@ -20,7 +21,7 @@ const Attendance = () => {
   };
 
   const getattendance = async () => {
-    const data = {};
+    const data = { regno: regno };
     const url = process.env.REACT_APP_API_URL + "/attendance/show-attendance";
     const headers = {
       "Content-Type": "application/json",
@@ -30,7 +31,7 @@ const Attendance = () => {
       const res = await Request(url, data, headers, errorFunction);
       const convertedResponse = res.data.map((log: LogEntry) => ({
         ...log,
-        convertedTime: convertDate(log.time), // Convert time to desired format
+        convertedTime: convertDate(log.date), // Convert time to desired format
       }));
       setResponse(convertedResponse);
     } catch (error) {
@@ -39,16 +40,12 @@ const Attendance = () => {
     }
   };
 
-  useEffect(() => {
-    getattendance();
-  }, []);
-
   const convertDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleString("en-US", {
+    return date.toLocaleString("en-GB", {
+      day: "numeric",
       year: "numeric",
       month: "numeric",
-      day: "numeric",
       hour: "numeric",
       minute: "numeric",
       hour12: true,
@@ -58,19 +55,36 @@ const Attendance = () => {
   return (
     <div className="iplogs-container">
       <h2>ATTENDANCE</h2>
-      <div className="container">
-        <h1>Welcome to Your Modern Dashboard</h1>
-        <p>Get insights and manage your data with ease.</p>
-        <a href="index.html">Go to Dashboard</a>
+
+      <div className="attendance">
+        <h1>Provide Register number</h1>
+        <input
+          type="text"
+          className="regno"
+          placeholder="eg. 21BIT0224"
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            const value = e.target.value;
+            setregno(value);
+          }}
+        />
+        <div className="">
+          <a
+            className="button"
+            onClick={() => {
+              getattendance();
+            }}
+          >
+            search
+          </a>
+        </div>
       </div>
+
       <div className="table-container">
         <table>
           <thead>
             <tr>
-              <th>IP Address</th>
-              <th>Status</th>
-              <th>Date</th>
-              <th>Payload</th>
+              <th>REG NO</th>
+              <th>DATE</th>
             </tr>
           </thead>
           <tbody>

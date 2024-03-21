@@ -25,12 +25,20 @@ const Layout = () => {
                 </a>
               </li>
               <li>
-                <a className="tabs" href="#">
+                <a
+                  className="tabs"
+                  href="#"
+                  onClick={() => navigate("/attendance")}
+                >
                   ATTENDANCE
                 </a>
               </li>
               <li>
-                <a className="tabs" href="#">
+                <a
+                  className="tabs"
+                  href="#"
+                  onClick={() => navigate("/reg-ip")}
+                >
                   REGISTERED IP
                 </a>
               </li>
