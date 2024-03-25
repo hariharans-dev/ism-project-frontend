@@ -4,11 +4,42 @@
   align-items: center;
   height: 100vh; /* Adjust this value as needed for vertical centering */
 }
+body{
+  background-color: rgb(238, 238, 238);
 
-.container {
-  text-align: center;
 }
 
 .container h1 {
   font-size: 2rem; /* Example font size adjustment */
+
 }
+/* Home.css */
+
+.container {
+  display: flex; /* Use flexbox layout */
+  justify-content: space-between; /* Distribute items along the main axis */
+  align-items: center; /* Align items along the cross axis */
+}
+
+.content {
+  display: flex; /* Use flexbox layout */
+ 
+}
+/* Home.css */
+.image-container {
+  display: flex; /* Use flexbox layout */
+  height: 100px; /* Specify the height of the container */
+}
+
+.image {
+  margin-bottom:50px ;
+  max-width: 800px; /* Ensure the image does not exceed container width */
+  max-height: 500px; /* Ensure the image does not exceed container height */
+  border-radius: 10px;
+}
+.team-info {
+  text-align: right; /* Align text to the right */
+  margin-top: 100px; /* Add some margin for spacing */
+  margin-left: 20px;
+}
+
