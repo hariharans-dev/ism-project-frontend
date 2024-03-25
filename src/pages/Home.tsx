@@ -1,5 +1,5 @@
-import './style/Home.css'; // Import the CSS file
-import imageSrc from './style/ip-spoofing-beitragsbild.jpg';
+import "./style/Home.css"; // Import the CSS file
+import imageSrc from "./style/ip-spoofing-beitragsbild.jpg";
 
 const Home = () => {
   return (
@@ -7,12 +7,23 @@ const Home = () => {
       <div className="body-home">
         <div className="container">
           <div className="content">
-            <img src={imageSrc} alt="Description of the image" className="image" />
-            
-            <p className="team-info">
-            <h1 >Mitigating IP Spoofing Risks Project</h1>
-            Team: Hariharan S (21BIT0224), Shrinidhi B (21BIT0381), Preethi S (21BIT0349)
-            </p>
+            <img
+              src={imageSrc}
+              alt="Description of the image"
+              className="image"
+            />
+
+            <div className="box">
+              <div className="team-info">
+                <h1>Mitigating IP Spoofing Risks Project</h1>
+              </div>
+              <div className="team-info">
+                <h4>
+                  Team: Hariharan S (21BIT0224), Shrinidhi B (21BIT0381),
+                  Preethi S (21BIT0349)
+                </h4>
+              </div>
+            </div>
           </div>
         </div>
       </div>

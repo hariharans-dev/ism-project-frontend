@@ -2,6 +2,8 @@ body {
   font-family: sans-serif;
   margin: 0;
   padding: 20px;
+  margin-left: 40px;
+  margin-right: 40px;
 }
 
 header {
@@ -11,7 +13,6 @@ header {
   justify-content: space-between;
   align-items: center;
   border-radius: 10px;
- 
 }
 
 h1 {
@@ -68,11 +69,14 @@ th {
 .tabs {
   display: inline-block;
   padding: 10px 20px;
-  background-color: #f3f2f0;
-  color: #3c3b3b;
+  background-color: rgb(34, 40, 49);
+  color: white;
+  font-size: large;
+  font-weight: 500;
   text-decoration: none;
   border-radius: 5px;
   transition: background-color 0.3s ease;
 }
-
-
+.tabs:hover {
+  background-color: #373434;
+}
