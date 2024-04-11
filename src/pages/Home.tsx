@@ -19,8 +19,8 @@ const Home = () => {
               </div>
               <div className="team-info">
                 <h4>
-                  Team: Hariharan S (21BIT0224), Shrinidhi B (21BIT0381),
-                  Preethi S (21BIT0349)
+                  Hariharan S (21BIT0224) Shrinidhi B (21BIT0381), Preethi S
+                  (21BIT0349)
                 </h4>
               </div>
             </div>

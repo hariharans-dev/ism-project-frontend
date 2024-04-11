@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Submission</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 100px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+
+      h1 {
+        color: #333;
+      }
+
+      p {
+        color: #666;
+        margin-bottom: 20px;
+      }
+
+      form {
+        margin-top: 20px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 10px;
+        margin-top: 10px;
+      }
+
+      input[type="text"] {
+        width: calc(100% - 10px);
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      button {
+        margin-top: 30px;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+
+      button:active {
+        transform: translateY(1px);
+      }
+
+      select {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>ATTENDANCE REGISTER</h1>
+      <form id="single" action="/single">
+        <button type="submit">Single attendance</button>
+      </form>
+      <form id="multi">
+        <button type="submit">File attendance</button>
+      </form>
+    </div>
+
+    <script>
+      // Add event listeners to the forms
+      document
+        .getElementById("single")
+        .addEventListener("submit", function (event) {
+          // Prevent the default form submission behavior
+          event.preventDefault();
+          // Redirect to the "/single" route
+          window.location.href = "/single";
+        });
+
+      document
+        .getElementById("multi")
+        .addEventListener("submit", function (event) {
+          // Prevent the default form submission behavior
+          event.preventDefault();
+          // Redirect to the "/multi" route
+          window.location.href = "/multi";
+        });
+    </script>
+  </body>
+</html>

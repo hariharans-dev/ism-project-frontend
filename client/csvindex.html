@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 100px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+
+      h1 {
+        color: #333;
+      }
+
+      p {
+        color: #666;
+        margin-bottom: 20px;
+      }
+
+      form {
+        margin-top: 20px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 10px;
+        margin-top: 10px;
+      }
+
+      input[type="text"] {
+        width: calc(100% - 10px);
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      .btn {
+        margin-top: 30px;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .btn:hover {
+        background-color: #0056b3;
+      }
+
+      .btn:active {
+        transform: translateY(1px);
+      }
+
+      select {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+      /* Add custom styles for the table */
+      .custom-table {
+        margin-top: 40px;
+        width: 100%;
+        border-collapse: collapse;
+        text-align: center;
+        font-family: Arial, sans-serif;
+      }
+
+      /* Add hover effect to rows */
+      .custom-table tr:hover {
+        background-color: #f9f9f9;
+      }
+
+      .back {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      #response {
+        margin-top: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <form id="back" action="/">
+      <button class="back" type="submit">Back</button>
+    </form>
+    <div class="container">
+      <h1>ATTENDANCE REGISTER</h1>
+      <form id="registerForm" onsubmit="handleSubmit(event)">
+        <label for="serverip">Server IP:</label>
+        <input type="text" id="serverip" name="serverip" required />
+        <label for="fileInput">Select File:</label>
+        <input type="file" id="csvFileInput" accept=".csv" />
+
+        <button class="btn" type="submit">Submit</button>
+        <div id="tableContainer"></div>
+        <h3>Select channel</h3>
+        <select id="channelSelect" name="channel">
+          <option value="unsecure">UDP (Insecure)</option>
+          <option value="secure">UDP (Secure)</option>
+        </select>
+      </form>
+      <button class="btn" onclick="handleFile()">Upload and Read</button>
+      <div id="response"></div>
+    </div>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.0/papaparse.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    document
+      .getElementById("back")
+      .addEventListener("submit", function (event) {
+        // Prevent the default form submission behavior
+        event.preventDefault();
+        // Redirect to the "/single" route
+        window.location.href = "/";
+      });
+    function handleFile() {
+      // Get the file input element
+      var fileInput = document.getElementById("csvFileInput");
+
+      // Check if a file is selected
+      if (fileInput.files.length > 0) {
+        // Get the selected file
+        var file = fileInput.files[0];
+
+        // Check if the file type is CSV
+        if (file.type === "text/csv") {
+          // Initialize PapaParse
+          Papa.parse(file, {
+            header: true, // Treat the first row as headers
+            complete: function (results) {
+              var tableContainer = document.getElementById("tableContainer");
+              tableContainer.innerHTML = "";
+              // Call the function to convert array to table and append it to the container
+              tableContainer.appendChild(arrayToTable(results.data));
+            },
+          });
+        } else {
+          // If the selected file is not a CSV file, show an error message
+          console.error("Please select a CSV file.");
+        }
+      } else {
+        // If no file is selected, show an error message
+        console.error("No file selected.");
+      }
+    }
+    function arrayToTable(data) {
+      var table = document.createElement("table");
+      table.classList.add("custom-table"); // Add a class for styling
+
+      var headers = Object.keys(data[0]);
+
+      // Create table header row
+      var headerRow = table.insertRow();
+      headers.forEach(function (header) {
+        var cell = headerRow.insertCell();
+        cell.textContent = header;
+        cell.classList.add("header-cell"); // Add a class for styling the header cells
+      });
+
+      // Create table rows
+      data.forEach(function (item) {
+        var row = table.insertRow();
+        headers.forEach(function (header) {
+          var cell = row.insertCell();
+          cell.textContent = item[header];
+        });
+      });
+
+      return table;
+    }
+    function handleSubmit(event) {
+      event.preventDefault();
+      var formData = new FormData(event.target);
+      var fileInput = document.getElementById("csvFileInput");
+
+      // Check if a file is selected
+      if (fileInput.files.length > 0) {
+        // Get the selected file
+        var file = fileInput.files[0];
+
+        // Check if the file type is CSV
+        if (file.type === "text/csv") {
+          // Initialize PapaParse
+          Papa.parse(file, {
+            header: true, // Treat the first row as headers
+            complete: function (results) {
+              var arr = [];
+              for (var i = 0; i < results.data.length; i++) {
+                if (results.data[i].Regno != "") {
+                  arr[i] = results.data[i].Regno;
+                }
+              }
+              var serverip = document.getElementById("serverip").value;
+              var selectedValue =
+                document.getElementById("channelSelect").value;
+              var jsondata = {
+                data: arr,
+                serverip: serverip,
+                channel: selectedValue,
+              };
+              console.log(jsondata);
+              axios
+                .post("http://localhost:4000/file-data", jsondata)
+                .then(function (response) {
+                  var res = document.getElementById("response");
+                  res.innerHTML = response.data;
+                  console.log(
+                    "Form data submitted successfully:",
+                    response.data
+                  );
+                })
+                .catch(function (error) {
+                  console.error("Error submitting form data:", error);
+                });
+            },
+          });
+        } else {
+          // If the selected file is not a CSV file, show an error message
+          console.error("Please select a CSV file.");
+        }
+      } else {
+        // If no file is selected, show an error message
+        console.error("No file selected.");
+      }
+    }
+  </script>
+</html>

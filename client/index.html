@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Submission</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 100px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+
+      h1 {
+        color: #333;
+      }
+
+      p {
+        color: #666;
+        margin-bottom: 20px;
+      }
+
+      form {
+        margin-top: 20px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 10px;
+        margin-top: 10px;
+      }
+
+      input[type="text"] {
+        width: calc(100% - 10px);
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      .btn {
+        margin-top: 30px;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .btn:hover {
+        background-color: #0056b3;
+      }
+
+      .btn:active {
+        transform: translateY(1px);
+      }
+
+      select {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+      .back {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      #response {
+        margin-top: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <form id="back" action="/">
+      <button class="back" type="submit">Back</button>
+    </form>
+    <div class="container">
+      <h1>ATTENDANCE REGISTER</h1>
+      <form id="registerForm">
+        <label for="registerNumber">Register Number:</label>
+        <input type="text" id="registerNumber" name="regno" required />
+        <label for="serverip">Server IP </label>
+        <input type="text" id="serveripandport" name="serverip" required />
+        <button class="btn" type="submit">Submit</button>
+        <h3>Select channel</h3>
+        <select id="channelSelect" name="channel">
+          <option value="unsecure">UDP (Insecure)</option>
+          <option value="secure">UDP (Secure)</option>
+        </select>
+      </form>
+      <div id="response"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+      document
+        .getElementById("back")
+        .addEventListener("submit", function (event) {
+          // Prevent the default form submission behavior
+          event.preventDefault();
+          // Redirect to the "/single" route
+          window.location.href = "/";
+        });
+      document.addEventListener("DOMContentLoaded", function () {
+        // Get the form element
+        var form = document.getElementById("registerForm");
+
+        // Add event listener for form submission
+        form.addEventListener("submit", function (event) {
+          // Prevent the default form submission behavior
+          event.preventDefault();
+
+          // Get the form data
+          var formData = new FormData(form);
+
+          var jsonData = {};
+          formData.forEach(function (value, key) {
+            jsonData[key] = value;
+          });
+          console.log(jsonData);
+
+          // Make a POST request using Axios
+          axios
+            .post("http://localhost:4000/form-data", jsonData)
+            .then(function (response) {
+              var res = document.getElementById("response");
+              res.innerHTML = response.data;
+              console.log("Form data submitted successfully:", response.data);
+            })
+            .catch(function (error) {
+              console.error("Error submitting form data:", error);
+            });
+        });
+      });
+    </script>
+  </body>
+</html>
