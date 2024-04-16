@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fingerprint</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center; /* Center align content */
+        background-color: #f0f0f0; /* Background color */
+        margin: 0;
+        padding: 0;
+      }
+
+      h1 {
+        color: #333;
+        margin-top: 50px;
+      }
+
+      #changeModeBtn {
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #4caf50;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        margin-top: 20px;
+      }
+
+      #controlValue {
+        font-size: 18px;
+        color: #555;
+      }
+
+      p {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Fingerprint App</h1>
+    <button id="changeModeBtn">Change Control Mode</button>
+    <p>FINGER PRINT MODE: <span id="controlValue">Loading...</span></p>
+
+    <script>
+      // Function to fetch control value from the server
+      function getControlValue() {
+        fetch("/getcontrol")
+          .then((response) => response.text())
+          .then((controlValue) => {
+            console.log(controlValue);
+            // Update the HTML content with the control value
+            if (controlValue == "0") {
+              document.getElementById("controlValue").textContent =
+                "Registration";
+            } else {
+              document.getElementById("controlValue").textContent =
+                "Enrollement";
+            }
+          })
+          .catch((error) => console.error("Error:", error));
+      }
+
+      // Send GET request to server to change control mode
+      document
+        .getElementById("changeModeBtn")
+        .addEventListener("click", function () {
+          fetch("/changecontrol")
+            .then((response) => response.text())
+            .then((message) => {
+              console.log(message);
+            })
+            .catch((error) => console.error("Error:", error));
+        });
+
+      // Fetch control value initially and then every 5 seconds
+      getControlValue();
+      setInterval(getControlValue, 1000);
+    </script>
+  </body>
+</html>

@@ -33,6 +33,7 @@ const Attendance = () => {
         ...log,
         convertedTime: convertDate(log.date), // Convert time to desired format
       }));
+      console.log(convertedResponse.length);
       setResponse(convertedResponse);
     } catch (error) {
       console.error("Error fetching IP logs:", error);
@@ -80,22 +81,25 @@ const Attendance = () => {
       </div>
 
       <div className="table-container">
-        <table>
-          <thead>
-            <tr>
-              <th>REG NO</th>
-              <th>DATE</th>
-            </tr>
-          </thead>
-          <tbody>
-            {response.map((log) => (
-              <tr key={log._id}>
-                <td>{log.regno}</td>
-                <td>{log.convertedTime}</td>
+        {response.length == 0 && <h5 className="response">No Attendance record found</h5>}
+        {response.length != 0 && (
+          <table>
+            <thead>
+              <tr>
+                <th>REG NO</th>
+                <th>DATE</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {response.map((log) => (
+                <tr key={log._id}>
+                  <td>{log.regno}</td>
+                  <td>{log.convertedTime}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
     </div>
   );

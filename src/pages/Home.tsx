@@ -18,10 +18,9 @@ const Home = () => {
                 <h1>Mitigating IP Spoofing Risks Project</h1>
               </div>
               <div className="team-info">
-                <h4>
-                  Hariharan S (21BIT0224) Shrinidhi B (21BIT0381), Preethi S
-                  (21BIT0349)
-                </h4>
+                <h4>Hariharan S (21BIT0224)</h4>
+                <h4>Shrinidhi B (21BIT0381)</h4>
+                <h4> Preethi S (21BIT0349)</h4>
               </div>
             </div>
           </div>
